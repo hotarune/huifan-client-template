@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #262626;
+  background: #fafafa;
+  font-synthesis: none;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  background: #f3f3f3;
+  color: inherit;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #ee7a32;
+  outline-offset: 3px;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.app {
+  min-height: 100dvh;
+  padding-bottom: 100px;
+}
+header {
+  padding: 28px 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+.eyebrow {
+  color: #bd5921;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+h1 {
+  font-size: 26px;
+  margin: 8px 0;
+}
+header p {
+  font-size: 14px;
+  color: #757575;
+  margin: 0;
+  line-height: 1.6;
+}
+.mock {
+  font-size: 11px;
+  background: #fff1e6;
+  color: #9a4719;
+  border-radius: 5px;
+  padding: 6px;
+  height: fit-content;
+  white-space: nowrap;
+}
+.toolbar {
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+}
+.toolbar label {
+  font-size: 13px;
+  white-space: nowrap;
+}
+input {
+  width: min(100%, 480px);
+  padding: 10px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 9px;
+  background: #fafafa;
+}
+main {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  min-height: 65vh;
+}
+nav {
+  background: #f3f3f3;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+nav button {
+  border-radius: 0;
+  min-height: 48px;
+  font-size: 13px;
+}
+nav button[aria-pressed="true"] {
+  color: #c95616;
+  background: white;
+  border-left: 3px solid #ed7b32;
+  font-weight: 600;
+}
+.catalog {
+  padding: 16px 24px 32px;
+  background: white;
+  min-width: 0;
+}
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 9px 12px;
+  margin-bottom: 20px;
+}
+.section-title h2 {
+  font-size: 13px;
+  margin: 0;
+}
+.section-title span {
+  font-size: 12px;
+  color: #888;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 28px;
+}
+article {
+  display: flex;
+  gap: 14px;
+  min-width: 0;
+}
+article > img,
+.placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.placeholder {
+  display: grid;
+  place-items: center;
+  background: #f5eee7;
+  color: #bb9678;
+  font-size: 32px;
+}
+.product-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+h3 {
+  font-size: 15px;
+  margin: 2px 0 6px;
+}
+.product-info p {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+.product-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: auto;
+}
+strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+small {
+  font-size: 11px;
+  color: #888;
+  font-weight: 400;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.stepper button {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 20px;
+}
+.stepper output {
+  font-size: 13px;
+  min-width: 14px;
+  text-align: center;
+}
+.plus {
+  background: #ee7b32;
+  color: white;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 32px calc(14px + env(safe-area-inset-bottom));
+  background: white;
+  box-shadow: 0 -6px 26px #00000009;
+}
+.cart-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: transparent;
+  padding: 0;
+}
+.cart-summary small {
+  display: block;
+  margin-top: 3px;
+}
+.bag {
+  display: grid;
+  place-items: center;
+  background: #fff0e5;
+  color: #dc6a24;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+}
+.primary {
+  background: #ec7830;
+  color: white;
+  border-radius: 30px;
+  padding: 13px 23px;
+  font-size: 14px;
+}
+.empty {
+  color: #888;
+  font-size: 14px;
+  padding: 30px 4px;
+}
+dialog {
+  border: 0;
+  border-radius: 18px;
+  padding: 24px;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  max-height: 85dvh;
+  overflow: auto;
+  box-shadow: 0 20px 70px #0003;
+}
+dialog::backdrop {
+  background: #0006;
+}
+.dialog-top,
+.dialog-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.dialog-top h2 {
+  font-size: 20px;
+  margin: 0;
+}
+.dialog-top button {
+  font-size: 13px;
+}
+dialog > p {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
+.qr {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  image-rendering: pixelated;
+  margin: 12px auto;
+}
+code {
+  display: block;
+  text-align: center;
+  overflow-wrap: anywhere;
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+}
+.hint {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.full {
+  width: 100%;
+  margin-top: 12px;
+}
+.cart-lines {
+  max-height: 50dvh;
+  overflow: auto;
+  margin: 20px 0;
+}
+.cart-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+.error {
+  padding: 12px;
+  background: #fff1ee;
+  color: #a43c20;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.data-error {
+  display: block;
+  padding: 32px;
+}
+@media (max-width: 600px) {
+  header {
+    padding: 20px 16px;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 22px;
+  }
+  .toolbar {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  main {
+    grid-template-columns: 78px 1fr;
+  }
+  .catalog {
+    padding: 12px;
+  }
+  .products {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  article {
+    gap: 10px;
+  }
+  article > img,
+  .placeholder {
+    width: 74px;
+    height: 82px;
+  }
+  h3 {
+    font-size: 14px;
+  }
+  .product-bottom {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .stepper {
+    margin-left: auto;
+    gap: 4px;
+  }
+  .stepper button {
+    width: 28px;
+    height: 28px;
+  }
+  footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .mock {
+    font-size: 9px;
+  }
+  .primary {
+    padding: 13px 18px;
+  }
+  strong {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "title": "现场预约",
+  "notice": "挑选商品，向现场工作人员出示预约码。",
+  "template": true,
+  "products": [
+    {
+      "id": "1001",
+      "name": "帆布手提袋",
+      "description": "原色棉布 · 日常随行",
+      "category": "生活周边",
+      "price": 3500,
+      "unit": "个",
+      "image": null
+    },
+    {
+      "id": "1002",
+      "name": "插画明信片",
+      "description": "收藏旅途中的小小片刻",
+      "category": "纸品",
+      "price": 1200,
+      "unit": "张",
+      "image": null
+    },
+    {
+      "id": "1003",
+      "name": "圆形徽章",
+      "description": "把喜欢别在身边",
+      "category": "生活周边",
+      "price": 1500,
+      "unit": "枚",
+      "image": null
+    }
+  ]
+}

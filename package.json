@@ -1,0 +1,31 @@
+{
+  "name": "huifan-client-template",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 6183",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 6184",
+    "test": "playwright test",
+    "import:data": "python3 scripts/import-data.py",
+    "test:import": "python3 tests/import-data.test.py"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/qrcode": "^1.5.6",
+    "@vitejs/plugin-react": "^6.0.2",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.0",
+    "@playwright/test": "^1.61.1",
+    "jsqr": "^1.4.0",
+    "pngjs": "^7.0.0"
+  }
+}
