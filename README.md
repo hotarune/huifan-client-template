@@ -65,23 +65,8 @@ JSON 完整示例：
 
 可在数据目录中打包：`python3 -m zipfile -c catalog.zip catalog.json images/`。
 
-## 可直接导入的示例包
+## 数据包存放约定
 
-[examples/catalog-example.zip](examples/catalog-example.zip) 包含 `catalog.json` 和 4 张本地 PNG 插画（含 `images/paper/` 子目录），共 4 个商品、2 个分类，含免费商品。它是明确标记 `MOCK` 的演示数据；当前 `src/data/` 已通过同一个导入命令装载此包。
+商品 ZIP 与配套打包源文件存放在仓库外，不作为模板源码提交。通过 `pnpm import:data /绝对路径/商品包.zip` 导入；导入后的 `src/data/` 是运行页面所需的静态数据。当前内置目录是带 `MOCK` 标记的已验证示例数据，可替换为正式商品。
 
-```sh
-pnpm import:data "$PWD/examples/catalog-example.zip"
-pnpm build
-pnpm test
-pnpm test:import
-```
-
-如果存在 `src/data.previous`，先按上文核对并保存或移除备份。示例源文件也保存在 `examples/catalog/`，插画生成脚本为 `scripts/create-example.mjs`。需要重新生成时：
-
-```sh
-node scripts/create-example.mjs
-cd examples/catalog
-python3 -m zipfile -c ../catalog-example.zip catalog.json images/
-```
-
-实际验证了导入后逐文件字节一致、四种屏宽的全部商品/图片/价格与分类、购物车增减及重新打开、二维码独立解码和免费商品单独生成。示例多商品结果为 `DEMO-1001,1;DEMO_1002,2`。
+导入测试在临时目录中自行创建 ZIP，不依赖仓库内或机器上的外部示例包。

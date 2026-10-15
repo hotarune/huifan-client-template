@@ -4,3 +4,7 @@ test-results/
 playwright-report/
 src/data.previous/
 __pycache__/
+
+# Source data packages belong outside the repository.
+*.zip
+examples/
