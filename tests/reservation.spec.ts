@@ -11,7 +11,8 @@ for (const width of [390, 1440, 2560, 3840]) {
     page.on("request", (r) => {
       if (
         ["fetch", "xhr", "websocket"].includes(r.resourceType()) ||
-        !r.url().startsWith("http://localhost:6184")
+        (!r.url().startsWith("http://localhost:6184/") &&
+          !r.url().startsWith("data:image/"))
       )
         requests.push(r.url());
     });
@@ -25,6 +26,49 @@ for (const width of [390, 1440, 2560, 3840]) {
       ).toBeVisible();
       return;
     }
+    const directory = page.getByRole("region", { name: "商品目录" });
+    await expect(directory.locator("article")).toHaveCount(
+      catalog.products.length,
+    );
+    await expect(directory.locator("img")).toHaveCount(
+      catalog.products.filter((p) => p.image).length,
+    );
+    for (const p of catalog.products) {
+      const card = directory
+        .locator("article")
+        .filter({
+          has: page.getByRole("heading", { name: p.name, exact: true }),
+        });
+      await expect(
+        card.getByText(p.description, { exact: true }),
+      ).toBeVisible();
+      await expect(card.locator("strong")).toContainText(
+        `¥${(p.price / 100).toFixed(2)}`,
+      );
+      if (p.image) {
+        const image = card.getByRole("img", { name: p.name, exact: true });
+        await expect(image).toBeVisible();
+        await expect(image).toHaveAttribute("src", /^data:image\//);
+        await expect
+          .poll(() =>
+            image.evaluate((img: HTMLImageElement) => img.naturalWidth),
+          )
+          .toBeGreaterThan(0);
+      }
+    }
+    for (const category of new Set(catalog.products.map((p) => p.category))) {
+      await page
+        .getByRole("navigation", { name: "商品分类" })
+        .getByRole("button", { name: category || "未分类", exact: true })
+        .click();
+      await expect(directory.locator("article")).toHaveCount(
+        catalog.products.filter((p) => p.category === category).length,
+      );
+    }
+    await page
+      .getByRole("navigation", { name: "商品分类" })
+      .getByRole("button", { name: "全部", exact: true })
+      .click();
     const products = catalog.products.slice(0, 2);
     for (const p of products) {
       await page
@@ -76,3 +120,27 @@ for (const width of [390, 1440, 2560, 3840]) {
     });
   });
 }
+
+test("免费商品单独生成与重新编辑", async ({ page }) => {
+  const product = catalog.products.find((p) => p.price === 0);
+  test.skip(!product, "当前目录没有免费商品");
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: `增加 ${product!.name}`, exact: true })
+    .click();
+  await page.getByRole("button", { name: "生成预约码", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "预约码", exact: true });
+  await expect(dialog.locator("code")).toHaveText(`${product!.id},1`);
+  const src = await dialog.getByAltText("商品预约二维码").getAttribute("src");
+  const png = PNG.sync.read(Buffer.from(src!.split(",")[1], "base64"));
+  expect(
+    jsQR(new Uint8ClampedArray(png.data), png.width, png.height)?.data,
+  ).toBe(`${product!.id},1`);
+  await dialog.getByRole("button", { name: "继续选购" }).click();
+  await page
+    .getByRole("button", { name: `减少 ${product!.name}`, exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "生成预约码", exact: true }),
+  ).toBeDisabled();
+});

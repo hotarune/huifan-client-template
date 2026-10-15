@@ -64,3 +64,24 @@ JSON 完整示例：
 所有字段必填。`id` 是唯一非空字符串，仅允许英文字母、数字、下划线、短横线，禁止逗号和分号；`price` 是非负整数，单位为分，允许免费商品；`image` 可以为 `null`。`products: []` 显示明确空状态。文本原样渲染，不解析 HTML。数组顺序也是展示和二维码编码顺序。图片文件名仅使用 ASCII 字母、数字、下划线、短横线、点及目录斜杠，不能引用外网或上级目录。
 
 可在数据目录中打包：`python3 -m zipfile -c catalog.zip catalog.json images/`。
+
+## 可直接导入的示例包
+
+[examples/catalog-example.zip](examples/catalog-example.zip) 包含 `catalog.json` 和 4 张本地 PNG 插画（含 `images/paper/` 子目录），共 4 个商品、2 个分类，含免费商品。它是明确标记 `MOCK` 的演示数据；当前 `src/data/` 已通过同一个导入命令装载此包。
+
+```sh
+pnpm import:data "$PWD/examples/catalog-example.zip"
+pnpm build
+pnpm test
+pnpm test:import
+```
+
+如果存在 `src/data.previous`，先按上文核对并保存或移除备份。示例源文件也保存在 `examples/catalog/`，插画生成脚本为 `scripts/create-example.mjs`。需要重新生成时：
+
+```sh
+node scripts/create-example.mjs
+cd examples/catalog
+python3 -m zipfile -c ../catalog-example.zip catalog.json images/
+```
+
+实际验证了导入后逐文件字节一致、四种屏宽的全部商品/图片/价格与分类、购物车增减及重新打开、二维码独立解码和免费商品单独生成。示例多商品结果为 `DEMO-1001,1;DEMO_1002,2`。

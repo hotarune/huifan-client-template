@@ -1,0 +1,43 @@
+{
+  "title": "周末小铺 · 预约示例",
+  "notice": "MOCK 示例商品，请勿用于真实预约。",
+  "template": true,
+  "products": [
+    {
+      "id": "DEMO-1001",
+      "name": "日常帆布袋",
+      "description": "棉布材质 · 原色",
+      "category": "生活周边",
+      "price": 3500,
+      "unit": "个",
+      "image": "images/tote.png"
+    },
+    {
+      "id": "DEMO_1002",
+      "name": "山间明信片",
+      "description": "风景插画 · 单张",
+      "category": "纸品",
+      "price": 1200,
+      "unit": "张",
+      "image": "images/paper/postcard.png"
+    },
+    {
+      "id": "1003",
+      "name": "微笑徽章",
+      "description": "圆形徽章 · 紫色",
+      "category": "生活周边",
+      "price": 1500,
+      "unit": "枚",
+      "image": "images/badge.png"
+    },
+    {
+      "id": "FREE-1004",
+      "name": "微笑贴纸",
+      "description": "免费领取的示例商品",
+      "category": "纸品",
+      "price": 0,
+      "unit": "张",
+      "image": "images/sticker.png"
+    }
+  ]
+}

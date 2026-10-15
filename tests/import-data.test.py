@@ -10,6 +10,27 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 class ImportTest(unittest.TestCase):
+    def test_shipped_example_zip(self):
+        example = Path(__file__).resolve().parents[1] / 'examples/catalog-example.zip'
+        with tempfile.TemporaryDirectory() as temp:
+            module.ROOT = Path(temp)
+            original = module.ROOT / 'src/data'
+            original.mkdir(parents=True)
+            (original / 'original.txt').write_text('preserved')
+            module.import_zip(example)
+            with zipfile.ZipFile(example) as archive:
+                names = [entry.filename for entry in archive.infolist() if not entry.is_dir()]
+                self.assertEqual(len(names), 5)
+                for name in names:
+                    self.assertEqual((original / name).read_bytes(), archive.read(name))
+                    self.assertEqual((example.parent / 'catalog' / name).read_bytes(), archive.read(name))
+                catalog = json.loads(archive.read('catalog.json'))
+                self.assertEqual(len(catalog['products']), 4)
+                self.assertTrue(catalog['template'])
+                for product in catalog['products']:
+                    self.assertTrue(archive.read(product['image']).startswith(bytes.fromhex('89504e470d0a1a0a')))
+            self.assertEqual((module.ROOT / 'src/data.previous/original.txt').read_text(), 'preserved')
+
     def test_validation_and_replacement(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
