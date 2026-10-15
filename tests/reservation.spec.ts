@@ -39,9 +39,7 @@ for (const width of [390, 1440, 2560, 3840]) {
         .filter({
           has: page.getByRole("heading", { name: p.name, exact: true }),
         });
-      await expect(
-        card.getByText(p.description, { exact: true }),
-      ).toBeVisible();
+      await expect(card.locator(".product-info > p")).toHaveText(p.description);
       await expect(card.locator("strong")).toContainText(
         `¥${(p.price / 100).toFixed(2)}`,
       );
