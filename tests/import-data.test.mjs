@@ -181,5 +181,5 @@ test("CLI reports usage without requiring an additional runtime", () => {
     encoding: "utf8",
   });
   assert.equal(result.status, 1);
-  assert.match(result.stderr, /用法: pnpm import:data/);
+  assert.match(result.stderr, /用法: npm run import:data/);
 });

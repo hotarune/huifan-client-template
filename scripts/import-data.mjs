@@ -169,7 +169,7 @@ if (
 ) {
   try {
     if (process.argv.length !== 3)
-      throw new Error("用法: pnpm import:data /绝对路径/catalog.zip");
+      throw new Error("用法: npm run import:data -- /绝对路径/catalog.zip");
     const count = await importZip(process.argv[2]);
     console.log(
       `已导入 ${count} 个商品。旧数据保存在 src/data.previous；核对后可手动移除。`,

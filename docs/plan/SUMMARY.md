@@ -1,8 +1,10 @@
 # Task Summary
 
-- Current: ZIP importing and tests use Node.js only; Python importer/tests removed. `pnpm import:data` keeps the same usage and backup/validation behavior.
+- Current package manager: npm. Use npm install (or npm ci for a locked install), npm run build, npm test and npm run import:data -- /path/catalog.zip. Historical completed-task records describe the tooling used at that time.
 
-- Completed 2026-10-16: removed E2E test files, config and browser dependencies. `pnpm test` now runs only the Node.js ZIP importer regression; current checks are build + importer tests, with manual browser verification for UI changes. Earlier browser results below are historical.
+- Current: ZIP importing and tests use Node.js only; Python importer/tests removed. `npm run import:data -- …` keeps the same usage and backup/validation behavior.
+
+- Completed 2026-10-16: removed E2E test files, config and browser dependencies. `npm test` now runs only the Node.js ZIP importer regression; current checks are build + importer tests, with manual browser verification for UI changes. Earlier browser results below are historical.
 
 - Completed: [example ZIP and full import verification](completed/verify-example-catalog.md): 4 MOCK products, 4 PNG images, 2 categories, including free merchandise; actually imported into src/data. Five browser scenarios passed; source ZIP and packaging assets now live outside the repository per user request. Import regression creates its own temporary ZIP.
 - Completed: independent local catalog/cart/reservation QR template outside the Huifan monorepo.

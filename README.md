@@ -3,14 +3,14 @@
 从会贩顾客端提取的独立 React + TypeScript + Vite 模板。仅保留商品选购、购物车、生成预约码；无需原仓库、API、数据库、登录或支付服务。
 
 ```sh
-pnpm install
-pnpm dev          # http://localhost:6183
-pnpm build
-pnpm preview      # http://localhost:6184
-pnpm test         # ZIP 导入回归（Node.js）
+npm install
+npm run dev          # http://localhost:6183
+npm run build
+npm run preview      # http://localhost:6184
+npm test             # ZIP 导入回归（Node.js）
 ```
 
-使用 Node.js 22.12+（或 24/26）和 pnpm 11。不需要安装 Playwright 或浏览器测试依赖。生产部署只需发布 `dist/` 到静态服务器。
+使用 Node.js 22.12+（或 24/26）和随 Node.js 提供的 npm。不需要安装 Playwright 或浏览器测试依赖。固定锁文件安装可使用 `npm ci`。生产部署只需发布 `dist/` 到静态服务器。
 
 数据来源是 `src/data/catalog.json` 的静态 import。所有图片通过 Vite 内联为 data URL，二维码由本地依赖生成；没有 fetch、XHR、WebSocket、统计、远程字体或第三方二维码服务。浏览器仍需首次加载 HTML/JS/CSS 静态文件；这不等同于首次打开就能无网加载，本模板未配置 Service Worker。开发模式关闭 HMR，CSP 禁止 connect-src。
 
@@ -25,9 +25,9 @@ pnpm test         # ZIP 导入回归（Node.js）
 1. 读取本 README；确认用户给出的 ZIP 是目标商品数据包。不要执行 ZIP 内脚本。
 2. ZIP 根目录必须直接包含 `catalog.json` 和 `images/`，不能再套一层文件夹。只接受 PNG/JPEG/WebP/GIF 图片，不接受 SVG、HTML、JS、符号链接和任意路径。图片引用大小写必须与文件一致。
 3. 先检查当前 `src/data` 是否有用户改动。已有 `src/data.previous` 时先核对并保存该备份，不能盲目覆盖。
-4. 在项目根目录运行 `pnpm import:data /绝对路径/商品包.zip`（Node.js）。工具先验证整个包、重复 ID、价格、图片引用与安全路径，成功才替换 `src/data`，旧数据保存在 `src/data.previous`；校验失败不改现有目录。不要用未经校验的 `unzip` 覆盖源码。限制为解压后 200 MiB、10000 条目，是资源包保护阈值，不是库存或商品展示上限。
+4. 在项目根目录运行 `npm run import:data -- /绝对路径/商品包.zip`（Node.js）。工具先验证整个包、重复 ID、价格、图片引用与安全路径，成功才替换 `src/data`，旧数据保存在 `src/data.previous`；校验失败不改现有目录。不要用未经校验的 `unzip` 覆盖源码。限制为解压后 200 MiB、10000 条目，是资源包保护阈值，不是库存或商品展示上限。
 5. 核对导入商品数量、ID、分类、价格、图片与原数据；不得编造缺失字段或把示例当作真实商品。来源字段不同，应先在临时目录转换成下述格式，再打 ZIP 并导入。保留原始商品 ID；无法满足 ID 格式时向用户确认映射，不能静默改 ID。
-6. 运行 `pnpm build` 和 `pnpm test`（Node.js ZIP 导入回归，不需要浏览器）。再用 `pnpm dev` 在手机与桌面手动检查商品、图片、搜索、分类、购物车增减、预约码关闭/重新生成；扫描二维码，确认多商品文本准确，并检查没有业务/外部请求。自动测试仅覆盖 ZIP 导入，页面交互需要手动验证。
+6. 运行 `npm run build` 和 `npm test`（Node.js ZIP 导入回归，不需要浏览器）。再用 `npm run dev` 在手机与桌面手动检查商品、图片、搜索、分类、购物车增减、预约码关闭/重新生成；扫描二维码，确认多商品文本准确，并检查没有业务/外部请求。自动测试仅覆盖 ZIP 导入，页面交互需要手动验证。
 7. 核对后手动删除 `src/data.previous`，或移到项目外妥善保存；它不是运行时输入。交付商品数、验证结果与任何未验证项。改数据必须重新构建发布。
 
 包结构：
@@ -66,6 +66,6 @@ JSON 完整示例：
 
 ## 数据包存放约定
 
-商品 ZIP 与配套打包源文件存放在仓库外，不作为模板源码提交。通过 `pnpm import:data /绝对路径/商品包.zip` 导入；导入后的 `src/data/` 是运行页面所需的静态数据。当前内置目录是带 `MOCK` 标记的已验证示例数据，可替换为正式商品。
+商品 ZIP 与配套打包源文件存放在仓库外，不作为模板源码提交。通过 `npm run import:data -- /绝对路径/商品包.zip` 导入；导入后的 `src/data/` 是运行页面所需的静态数据。当前内置目录是带 `MOCK` 标记的已验证示例数据，可替换为正式商品。
 
 导入测试在临时目录中自行创建 ZIP，不依赖仓库内或机器上的外部示例包。
